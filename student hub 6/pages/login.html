@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub - Login</title>
+    <meta name="description" content="Sign in to your Student Hub account or Admin Portal.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script defer src="../js/header.js"></script>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            <a href="home.html" class="nav-brand">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                <span>STUDENT HUB</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="event.html" class="nav-link">Events</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button type="button" class="theme-toggle" aria-label="Toggle Theme"></button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="hero-wrapper" style="padding: 2rem 0;">
+            <!-- Login Card -->
+            <div class="auth-card" style="width: 100%; max-width: 480px; margin: 0 auto;">
+                
+                <!-- Role Selection Tabs -->
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; background: var(--bg-page); padding: 0.35rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <button type="button" id="tab-student-login" class="btn btn-sm btn-primary" style="flex: 1; border-radius: 6px;" onclick="switchLoginMode('student')">
+                        🎓 Student Login
+                    </button>
+                    <button type="button" id="tab-admin-login" class="btn btn-sm btn-outline" style="flex: 1; border-radius: 6px; border: none;" onclick="switchLoginMode('admin')">
+                        🛡️ Admin Login
+                    </button>
+                </div>
+
+                <!-- STUDENT LOGIN FORM -->
+                <div id="student-login-section">
+                    <h1 class="auth-title">Student Portal Login</h1>
+                    <p class="auth-subtitle">Sign in with your student credentials or email</p>
+
+                    <form id="student-login-form" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="student-email">Email or Student ID</label>
+                            <input type="text" id="student-email" class="form-control" placeholder="alex@university.edu" required autocomplete="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="student-password">Password</label>
+                            <input type="password" id="student-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.875rem;">
+                            <label class="form-checkbox">
+                                <input type="checkbox" name="remember" checked>
+                                <span>Remember Me</span>
+                            </label>
+                            <a href="faq.html" style="color: var(--primary-color);">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" style="padding: 0.75rem;">
+                            Login to Dashboard
+                        </button>
+                    </form>
+
+                    <p class="auth-footer-text">
+                        Don't have an account? <a href="register.html" style="color: var(--primary-color); font-weight: 600;">Register Here</a>
+                    </p>
+                </div>
+
+                <!-- ADMIN LOGIN / SETUP FORM -->
+                <div id="admin-login-section" style="display: none;">
+                    <div id="admin-setup-banner" style="display: none; background: #e0f2fe; border: 1px solid #7dd3fc; color: #0369a1; padding: 0.85rem; border-radius: 6px; margin-bottom: 1.25rem; font-size: 0.875rem;">
+                        ⚙️ <strong>First-Time Admin Setup:</strong> Please create your initial Administrator credentials below to secure website administration.
+                    </div>
+
+                    <h1 class="auth-title" id="admin-title">Admin Access</h1>
+                    <p class="auth-subtitle" id="admin-subtitle">Secure administrative control panel</p>
+
+                    <div id="admin-error-msg" style="display: none; background: #fee2e2; border: 1px solid #fca5a5; color: #b91c1c; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.875rem;"></div>
+
+                    <form id="admin-login-form" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="admin-username">Admin Username</label>
+                            <input type="text" id="admin-username" class="form-control" placeholder="admin" required autocomplete="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="admin-password">Admin Password</label>
+                            <input type="password" id="admin-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+
+                        <div id="admin-confirm-group" class="form-group" style="display: none;">
+                            <label class="form-label" for="admin-confirm-password">Confirm Admin Password</label>
+                            <input type="password" id="admin-confirm-password" class="form-control" placeholder="••••••••">
+                        </div>
+
+                        <button type="submit" id="admin-submit-btn" class="btn btn-primary btn-block" style="padding: 0.75rem;">
+                            Authenticate as Admin
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Student Illustration -->
+            <div style="text-align: center;">
+                <svg class="hero-illustration" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="500" height="400" rx="16" fill="#EAF3FF"/>
+                    <circle cx="250" cy="180" r="100" fill="#DBEAFE"/>
+                    <rect x="150" y="240" width="200" height="120" rx="12" fill="#2563D9"/>
+                    <circle cx="250" cy="160" r="45" fill="#163B65"/>
+                    <path d="M190 280H310" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-copy">&copy; 2026 Student Hub. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchLoginMode(mode) {
+            const studentSection = document.getElementById('student-login-section');
+            const adminSection = document.getElementById('admin-login-section');
+            const tabStudent = document.getElementById('tab-student-login');
+            const tabAdmin = document.getElementById('tab-admin-login');
+
+            if (mode === 'admin') {
+                studentSection.style.display = 'none';
+                adminSection.style.display = 'block';
+                tabAdmin.classList.add('btn-primary');
+                tabAdmin.classList.remove('btn-outline');
+                tabStudent.classList.remove('btn-primary');
+                tabStudent.classList.add('btn-outline');
+                checkAdminFirstTimeSetup();
+            } else {
+                adminSection.style.display = 'none';
+                studentSection.style.display = 'block';
+                tabStudent.classList.add('btn-primary');
+                tabStudent.classList.remove('btn-outline');
+                tabAdmin.classList.remove('btn-primary');
+                tabAdmin.classList.add('btn-outline');
+            }
+        }
+
+        function checkAdminFirstTimeSetup() {
+            const storedAdmin = localStorage.getItem('student_hub_admin_credentials');
+            const setupBanner = document.getElementById('admin-setup-banner');
+            const confirmGroup = document.getElementById('admin-confirm-group');
+            const submitBtn = document.getElementById('admin-submit-btn');
+            const adminTitle = document.getElementById('admin-title');
+            const adminSubtitle = document.getElementById('admin-subtitle');
+
+            if (!storedAdmin) {
+                setupBanner.style.display = 'block';
+                confirmGroup.style.display = 'block';
+                adminTitle.textContent = 'Set Admin Credentials';
+                adminSubtitle.textContent = 'Initial one-time setup for Administrator access';
+                submitBtn.textContent = 'Save Credentials & Login as Admin';
+            } else {
+                setupBanner.style.display = 'none';
+                confirmGroup.style.display = 'none';
+                adminTitle.textContent = 'Admin Portal Login';
+                adminSubtitle.textContent = 'Enter configured administrator credentials';
+                submitBtn.textContent = 'Login to Admin Dashboard';
+            }
+        }
+
+        // Check URL parameter (e.g. login.html?role=admin)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('role') === 'admin') {
+                switchLoginMode('admin');
+            }
+
+            // Student Login Submission
+            const studentForm = document.getElementById('student-login-form');
+            studentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('student-email').value.trim();
+                
+                // If there is existing stored user or registered list, load them
+                let userRecord = null;
+                const storedUser = localStorage.getItem('student_hub_current_user');
+                if (storedUser) {
+                    userRecord = JSON.parse(storedUser);
+                }
+
+                if (!userRecord || (emailInput && userRecord.email !== emailInput)) {
+                    // Look up in registered students list
+                    const studentsList = JSON.parse(localStorage.getItem('student_hub_students') || '[]');
+                    const match = studentsList.find(s => s.email.toLowerCase() === emailInput.toLowerCase() || s.name.toLowerCase() === emailInput.toLowerCase());
+                    
+                    if (match) {
+                        userRecord = match;
+                    } else {
+                        // Create session from email
+                        const derivedName = emailInput.split('@')[0].replace(/[._-]/g, ' ');
+                        const formattedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
+                        userRecord = {
+                            id: "STU-" + Math.floor(1000 + Math.random() * 9000),
+                            name: formattedName || "Alex Johnson",
+                            email: emailInput || "alex@university.edu",
+                            course: "B.Tech",
+                            year: "Third Year",
+                            department: "Computer Science",
+                            semester: "5",
+                            city: "Campus Resident",
+                            registeredDate: new Date().toISOString().split('T')[0]
+                        };
+                    }
+                }
+
+                localStorage.setItem('student_hub_current_user', JSON.stringify(userRecord));
+                localStorage.setItem('student_hub_logged_in', 'true');
+                localStorage.removeItem('student_hub_is_admin');
+
+                window.location.href = 'dashboard.html';
+            });
+
+            // Admin Login Submission
+            const adminForm = document.getElementById('admin-login-form');
+            adminForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('admin-username').value.trim();
+                const password = document.getElementById('admin-password').value;
+                const confirmPassword = document.getElementById('admin-confirm-password').value;
+                const errorBox = document.getElementById('admin-error-msg');
+                const storedAdminJson = localStorage.getItem('student_hub_admin_credentials');
+
+                errorBox.style.display = 'none';
+
+                if (!storedAdminJson) {
+                    // First time admin setup
+                    if (!username || !password) {
+                        errorBox.textContent = 'Please enter both an admin username and password.';
+                        errorBox.style.display = 'block';
+                        return;
+                    }
+                    if (password.length < 4) {
+                        errorBox.textContent = 'Password should be at least 4 characters long.';
+                        errorBox.style.display = 'block';
+                        return;
+                    }
+                    if (password !== confirmPassword) {
+                        errorBox.textContent = 'Passwords do not match.';
+                        errorBox.style.display = 'block';
+                        return;
+                    }
+
+                    // Save new admin credentials
+                    const newAdmin = { username: username, password: password, created: new Date().toISOString() };
+                    localStorage.setItem('student_hub_admin_credentials', JSON.stringify(newAdmin));
+                    localStorage.setItem('student_hub_is_admin', 'true');
+                    localStorage.setItem('student_hub_logged_in', 'true');
+                    localStorage.setItem('student_hub_current_user', JSON.stringify({
+                        name: username.charAt(0).toUpperCase() + username.slice(1) + " (Admin)",
+                        role: "Administrator",
+                        email: username + "@admin.hub",
+                        course: "Admin Control",
+                        year: "Staff"
+                    }));
+
+                    window.location.href = 'admin.html';
+                } else {
+                    // Verify credentials
+                    const adminData = JSON.parse(storedAdminJson);
+                    if (username === adminData.username && password === adminData.password) {
+                        localStorage.setItem('student_hub_is_admin', 'true');
+                        localStorage.setItem('student_hub_logged_in', 'true');
+                        localStorage.setItem('student_hub_current_user', JSON.stringify({
+                            name: username.charAt(0).toUpperCase() + username.slice(1) + " (Admin)",
+                            role: "Administrator",
+                            email: username + "@admin.hub",
+                            course: "Admin Control",
+                            year: "Staff"
+                        }));
+                        window.location.href = 'admin.html';
+                    } else {
+                        errorBox.textContent = 'Invalid Administrator username or password.';
+                        errorBox.style.display = 'block';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

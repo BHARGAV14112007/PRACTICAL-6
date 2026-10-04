@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub - Admin Dashboard</title>
+    <meta name="description" content="Admin Control Panel - Manage users, campus events, resources, and reports.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/auth.js"></script>
+    <script>
+      // Blocking gate (runs BEFORE body content is parsed or painted).
+      // Only authenticated admins may proceed – otherwise redirect to admin login.
+      if (window.AuthGate) window.AuthGate.requireAdmin();
+    </script>
+    <script defer src="../js/header.js"></script>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            <a href="home.html" class="nav-brand">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                <span>STUDENT HUB</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="event.html" class="nav-link">Event</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="profile.html" class="nav-link">Profile</a></li>
+                <li><a href="admin.html" class="nav-link active">Admin</a></li>
+            </ul>
+            <button type="button" class="theme-toggle">Dark Mode</button>
+        </div>
+    </header>
+
+    <!-- Sidebar & Admin Layout -->
+    <div class="sidebar-layout">
+        <!-- Dark Navy Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-user">
+                <svg class="sidebar-avatar" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="50" fill="#102A43"/>
+                    <circle cx="50" cy="40" r="20" fill="#60A5FA"/>
+                    <path d="M20 85C20 68 33 55 50 55C67 55 80 68 80 85" fill="#60A5FA"/>
+                </svg>
+                <div>
+                    <div class="sidebar-user-name user-display-name">System Admin</div>
+                    <div class="sidebar-user-role user-display-role">Administrator</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="admin.html" class="sidebar-link active">Admin Dashboard</a></li>
+                <li><a href="#users" class="sidebar-link">Users</a></li>
+                <li><a href="event.html" class="sidebar-link">Events</a></li>
+                <li><a href="#resources" class="sidebar-link">Resources</a></li>
+                <li><a href="#messages" class="sidebar-link">Messages</a></li>
+                <li><a href="#reports" class="sidebar-link">Reports</a></li>
+                <li><a href="#settings" class="sidebar-link">Settings</a></li>
+                <li><a href="home.html" class="sidebar-link">Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="sidebar-content">
+            <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h1 class="page-title">Admin Dashboard</h1>
+                    <p class="page-subtitle">Manage campus events, student accounts, and system analytics</p>
+                </div>
+                <button type="button" class="btn btn-primary">+ Add New Event</button>
+            </div>
+
+            <!-- Statistics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1,420</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">48</div>
+                    <div class="stat-label">Total Events</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Messages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Reports</div>
+                </div>
+            </div>
+
+            <!-- Recent Events Management Table -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--navy);">Recent Campus Events</h3>
+                    <button type="button" class="btn btn-sm btn-outline">Export Data</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                                <th>Registrations</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tech Fest 2026</strong></td>
+                                <td>March 15, 2026</td>
+                                <td>342 / 500</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-outline" style="margin-right: 0.25rem;">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coding Challenge</strong></td>
+                                <td>March 18, 2026</td>
+                                <td>180 / 200</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-outline" style="margin-right: 0.25rem;">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>AI & Machine Learning Workshop</strong></td>
+                                <td>March 20, 2026</td>
+                                <td>150 / 150</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-outline" style="margin-right: 0.25rem;">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Annual Photography Contest</strong></td>
+                                <td>April 05, 2026</td>
+                                <td>95 / 300</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-outline" style="margin-right: 0.25rem;">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-copy">&copy; 2026 Student Hub. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
